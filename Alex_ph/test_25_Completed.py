@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # ===============================
 # 1. Load
 # ===============================
-img = cv2.imread("input.tif")
+img = cv2.imread("D:/flash/programing/Python/pythonProject12/AI_learning_projects/Alex_ph/input.tif")
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 # ===============================
