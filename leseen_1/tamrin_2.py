@@ -4,29 +4,36 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import numpy as np
 
-f = lambda x: 4 * x + 10
 
-number_of_data = 50
-X = np.linspace(-100, 100, number_of_data)  # X = np.linspace(-100, 100, number_of_data).reshape(-1, 1)
-Y = f(X)
-noise = np.random.randn(number_of_data) * 20
-Y_Noised = Y + noise
+def mack_data(number_of_data = 100):
+    
+    f = lambda x: 4 * x + 5
+    X = np.linspace(0, 100, number_of_data).reshape(-1, 1)  
+    
+    Y = f(X).reshape(-1, 1)
+   
+    Y_Noised = Y + np.random.randn(number_of_data) * 20
 
-X = X.reshape(-1, 1)  # shape: (50,) => shape: (50, 1)
-Y = Y.reshape(-1, 1)
-Y_Noised = Y_Noised.reshape(-1, 1)
-# داخل سایکیت لرن، داده های ورودی باید دو بعدی باشند
+    x_train , x_test , y_train , y_test = train_test_split(X , Y_Noised , test_size= 0.2 , random_state= 85)
+
+    return Y_Noised , X , Y , x_train , x_test , y_train , y_test
+
+Y_Noised, X , Y , x_train , x_test , y_train , y_test = mack_data()
+
+
+
 model = LinearRegression()
-model.fit(X, Y_Noised)
-# a_hat = model.coef_, b_hat = model.intercept_
-g = lambda x: model.coef_ * x + model.intercept_
-Y_Predicted = g(X)
+model.fit(x_train, y_train)
 
-plt.plot(X, Y, "-b")
-plt.plot(X, Y_Noised, "or")
-plt.plot(X, Y_Predicted, "sg")
-plt.plot(X, Y_Predicted, "-k")
-plt.title(f"Y = 4 * X + 10, Y_hat = {model.coef_} X + {model.intercept_}")
 
-plt.legend(["Original Line", "Data with Noise", "Pridected Data", "Predicted Line"])
+y_predict = model.predict(x_test)
+# g = lambda x: model.coef_ * x + model.intercept_
+
+# plt.plot(X, Y, "-b")
+plt.plot(x_train, y_train, "or")
+# plt.plot(X, Y_Predicted, "sg")
+# plt.plot(X, Y_Predicted, "-k")
+# plt.title(f"Y = 4 * X + 10, Y_hat = {model.coef_} X + {model.intercept_}")
+
+# plt.legend(["Original Line", "Data with Noise", "Pridected Data", "Predicted Line"])
 plt.show()
