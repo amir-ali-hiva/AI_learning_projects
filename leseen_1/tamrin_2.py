@@ -8,11 +8,11 @@ import numpy as np
 def mack_data(number_of_data = 100):
     
     f = lambda x: 4 * x + 5
-    X = np.linspace(0, 100, number_of_data).reshape(-1, 1)  
-    
+    X = np.linspace(0, 100, number_of_data) 
     Y = f(X).reshape(-1, 1)
+    X = X.reshape(-1, 1)
    
-    Y_Noised = Y + np.random.randn(number_of_data) * 20
+    Y_Noised = Y + np.random.randn(number_of_data,1) * 20
 
     x_train , x_test , y_train , y_test = train_test_split(X , Y_Noised , test_size= 0.2 , random_state= 85)
 
