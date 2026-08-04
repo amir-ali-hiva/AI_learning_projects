@@ -4,7 +4,9 @@ import numpy as np
 
 
 
-
+def create_data( data_start = 0 , data_end = 100 ):
+    y = lambda x : 3 * x + 4
+    x = np.linspace(data_start, )
 
 
 
